@@ -2,48 +2,48 @@
 #include <string.h>
 #include <stdlib.h>
 
-/*ŒvZ®ƒŠƒXƒg\‘¢*/
+/*è¨ˆç®—å¼ãƒªã‚¹ãƒˆæ§‹é€ */
 struct list{
 	char str[16];
 	double answer;
 	struct list *next;
 };
 
-/*ŒvZ‹@*/
+/*è¨ˆç®—æ©Ÿ*/
 int calculater(char *input){
 	double val[4];
 	char sig[3];
 	int cnt;
 	
-	/*”’l‚Ìæ“¾*/
+	/*æ•°å€¤ã®å–å¾—*/
 	val[0] = double(input[0] - '0');
 	val[1] = double(input[2] - '0');
 	val[2] = double(input[4] - '0');
 	val[3] = double(input[6] - '0');
-	/*‹L†‚Ìæ“¾*/
+	/*è¨˜å·ã®å–å¾—*/
 	sig[0] = input[1];
 	sig[1] = input[3];
 	sig[2] = input[5];
 	
-	/*æœZ*/
-	cnt = 0;		//‹L†ƒJƒEƒ“ƒ^
+	/*ä¹—é™¤ç®—*/
+	cnt = 0;		//è¨˜å·ã‚«ã‚¦ãƒ³ã‚¿
 	while(cnt <= 2){
-		if(sig[cnt] == '*'){						//æZ‹L†‚Ìê‡
+		if(sig[cnt] == '*'){						//ä¹—ç®—è¨˜å·ã®å ´åˆ
 			val[cnt + 1] = val[cnt] * val[cnt + 1];
-			sig[cnt] = ' ';				//‹L†‚ª‹ó”’‚Ìê‡A‹ó”’‘O‚Ì–³Œø‚ğˆÓ–¡‚·‚é
+			sig[cnt] = ' ';				//è¨˜å·ãŒç©ºç™½ã®å ´åˆã€ç©ºç™½å‰ã®ç„¡åŠ¹ã‚’æ„å‘³ã™ã‚‹
 		}
-		else if(sig[cnt] == '/'){						//æZ‹L†‚Ìê‡
+		else if(sig[cnt] == '/'){						//ä¹—ç®—è¨˜å·ã®å ´åˆ
 			val[cnt + 1] = val[cnt] / val[cnt + 1];
-			sig[cnt] = ' ';				//‹L†‚ª‹ó”’‚Ìê‡A‹ó”’‘O‚Ì–³Œø‚ğˆÓ–¡‚·‚é
+			sig[cnt] = ' ';				//è¨˜å·ãŒç©ºç™½ã®å ´åˆã€ç©ºç™½å‰ã®ç„¡åŠ¹ã‚’æ„å‘³ã™ã‚‹
 		}
 		//printf("debug:%2.1f%c%2.1f%c%2.1f%c%2.1f\n", val[0], sig[0], val[1], sig[1], val[2], sig[2], val[3]);
 		cnt++;
 	}
 	
-	/*‰ÁŒ¸Z*/
-	cnt = 0;		//‹L†ƒJƒEƒ“ƒ^
+	/*åŠ æ¸›ç®—*/
+	cnt = 0;		//è¨˜å·ã‚«ã‚¦ãƒ³ã‚¿
 	while(cnt < 3){
-		if(sig[cnt] == '+'){						//‰ÁZ‹L†‚Ìê‡
+		if(sig[cnt] == '+'){						//åŠ ç®—è¨˜å·ã®å ´åˆ
 			if(cnt == 0 && sig[cnt + 1] == ' ' && sig[cnt + 2] == ' '){
 				val[cnt + 3] = val[cnt] + val[cnt + 3];
 			}
@@ -54,7 +54,7 @@ int calculater(char *input){
 				val[cnt + 1] = val[cnt] + val[cnt + 1];
 			}
 		}
-		else if(sig[cnt] == '-'){						//Œ¸Z‹L†‚Ìê‡
+		else if(sig[cnt] == '-'){						//æ¸›ç®—è¨˜å·ã®å ´åˆ
 			if(cnt == 0 && sig[cnt + 1] == ' ' && sig[cnt + 2] == ' '){
 				val[cnt + 3] = val[cnt] - val[cnt + 3];
 			}
@@ -71,7 +71,7 @@ int calculater(char *input){
 	return val[3];
 }
 
-/*ŒvZ®¶¬*/
+/*è¨ˆç®—å¼ç”Ÿæˆ*/
 struct list *generator(char input[16]){
 	struct list *head = NULL;
 	struct list *now;
@@ -79,7 +79,7 @@ struct list *generator(char input[16]){
 	char str[16];
 	int counter[3];
 	
-	/*“ü—Íƒ`ƒFƒbƒN*/
+	/*å…¥åŠ›ãƒã‚§ãƒƒã‚¯*/
 	while(cnt < 4){
 		if(input[cnt] < '0' || input[cnt] > '9'){
 			printf("Not numerics!\n");
@@ -114,7 +114,7 @@ struct list *generator(char input[16]){
 	return head;
 }
 
-/*ƒŠƒXƒg‚Ì•\¦*/
+/*ãƒªã‚¹ãƒˆã®è¡¨ç¤º*/
 int showList(struct list *inputList){
 	int cnt = 0;
 	
@@ -133,7 +133,7 @@ int showList(struct list *inputList){
 	return cnt;
 }
 
-/*ƒŠƒXƒg‚ÌƒNƒŠƒA*/
+/*ãƒªã‚¹ãƒˆã®ã‚¯ãƒªã‚¢*/
 int clearList(struct list *inputList){
 	struct list *delPtr;
 	int cnt = 0;
@@ -148,20 +148,20 @@ int clearList(struct list *inputList){
 }
 
 int main(){
-	char str[16];		//“ü—Í•¶š—ñ—p
-	struct list *head;	//ƒŠƒXƒg‚Ìæ“ªƒAƒhƒŒƒX
+	char str[16];		//å…¥åŠ›æ–‡å­—åˆ—ç”¨
+	struct list *head;	//ãƒªã‚¹ãƒˆã®å…ˆé ­ã‚¢ãƒ‰ãƒ¬ã‚¹
 	
 	while(true){
-		printf("\n***<<< 4Œ…‚Å10‚É‚È‚éŒvZ‹@ >>>***\n");
+		printf("\n***<<< 4æ¡ã§10ã«ãªã‚‹è¨ˆç®—æ©Ÿ >>>***\n");
 		printf("input 4 numbers (xxxx)>>");
 		
 		fgets(str, 5, stdin);
-		str[strlen(str)] = '\0';	//‰üs•¶š‚ğI––•¶š‚É
-		fflush(stdin);				//•W€“ü—ÍƒXƒgƒŠ[ƒ€‚ÌƒNƒŠƒA
+		str[strlen(str)] = '\0';	//æ”¹è¡Œæ–‡å­—ã‚’çµ‚æœ«æ–‡å­—ã«
+		fflush(stdin);				//æ¨™æº–å…¥åŠ›ã‚¹ãƒˆãƒªãƒ¼ãƒ ã®ã‚¯ãƒªã‚¢
 		
-		head = generator(str);						//ŒvZ®ƒŠƒXƒg‚Ì¶¬
-		printf("sumF%d\n", showList(head));	//ŒvZ®ƒŠƒXƒg‚Ì•\¦
-		clearList(head);							//ŒvZ®ƒŠƒXƒg‚Ìíœ
+		head = generator(str);						//è¨ˆç®—å¼ãƒªã‚¹ãƒˆã®ç”Ÿæˆ
+		printf("sumï¼š%d\n", showList(head));	//è¨ˆç®—å¼ãƒªã‚¹ãƒˆã®è¡¨ç¤º
+		clearList(head);							//è¨ˆç®—å¼ãƒªã‚¹ãƒˆã®å‰Šé™¤
 	}
 	
 	return 0;
