@@ -2,48 +2,48 @@
 #include <string.h>
 #include <stdlib.h>
 
-/*計算式リスト構造*/
+/*Formula List Struct*/
 struct list{
 	char str[16];
 	double answer;
 	struct list *next;
 };
 
-/*計算機*/
+/*Calculater*/
 int calculater(char *input){
 	double val[4];
 	char sig[3];
 	int cnt;
 	
-	/*数値の取得*/
+	/*get val*/
 	val[0] = double(input[0] - '0');
 	val[1] = double(input[2] - '0');
 	val[2] = double(input[4] - '0');
 	val[3] = double(input[6] - '0');
-	/*記号の取得*/
+	/*get sig*/
 	sig[0] = input[1];
 	sig[1] = input[3];
 	sig[2] = input[5];
 	
-	/*乗除算*/
-	cnt = 0;		//記号カウンタ
+	/*Multiplication and division*/
+	cnt = 0;		
 	while(cnt <= 2){
-		if(sig[cnt] == '*'){						//乗算記号の場合
+		if(sig[cnt] == '*'){						//For multiplication
 			val[cnt + 1] = val[cnt] * val[cnt + 1];
-			sig[cnt] = ' ';				//記号が空白の場合、空白前の無効を意味する
+			sig[cnt] = ' ';				//If sig is blank, num before blank is invalid.
 		}
-		else if(sig[cnt] == '/'){						//乗算記号の場合
+		else if(sig[cnt] == '/'){					//For division
 			val[cnt + 1] = val[cnt] / val[cnt + 1];
-			sig[cnt] = ' ';				//記号が空白の場合、空白前の無効を意味する
+			sig[cnt] = ' ';				//If sig is blank, num before blank is invalid.
 		}
 		//printf("debug:%2.1f%c%2.1f%c%2.1f%c%2.1f\n", val[0], sig[0], val[1], sig[1], val[2], sig[2], val[3]);
 		cnt++;
 	}
 	
-	/*加減算*/
-	cnt = 0;		//記号カウンタ
+	/*Addition and subtraction*/
+	cnt = 0;		
 	while(cnt < 3){
-		if(sig[cnt] == '+'){						//加算記号の場合
+		if(sig[cnt] == '+'){						//For add
 			if(cnt == 0 && sig[cnt + 1] == ' ' && sig[cnt + 2] == ' '){
 				val[cnt + 3] = val[cnt] + val[cnt + 3];
 			}
@@ -54,7 +54,7 @@ int calculater(char *input){
 				val[cnt + 1] = val[cnt] + val[cnt + 1];
 			}
 		}
-		else if(sig[cnt] == '-'){						//減算記号の場合
+		else if(sig[cnt] == '-'){					//For sub
 			if(cnt == 0 && sig[cnt + 1] == ' ' && sig[cnt + 2] == ' '){
 				val[cnt + 3] = val[cnt] - val[cnt + 3];
 			}
@@ -71,7 +71,7 @@ int calculater(char *input){
 	return val[3];
 }
 
-/*計算式生成*/
+/*Generate list of formula*/
 struct list *generator(char input[16]){
 	struct list *head = NULL;
 	struct list *now;
@@ -79,7 +79,7 @@ struct list *generator(char input[16]){
 	char str[16];
 	int counter[3];
 	
-	/*入力チェック*/
+	/*Input check*/
 	while(cnt < 4){
 		if(input[cnt] < '0' || input[cnt] > '9'){
 			printf("Not numerics!\n");
@@ -114,7 +114,7 @@ struct list *generator(char input[16]){
 	return head;
 }
 
-/*リストの表示*/
+/*Show list of formula*/
 int showList(struct list *inputList){
 	int cnt = 0;
 	
@@ -133,7 +133,7 @@ int showList(struct list *inputList){
 	return cnt;
 }
 
-/*リストのクリア*/
+/*clear lsit of formula*/
 int clearList(struct list *inputList){
 	struct list *delPtr;
 	int cnt = 0;
@@ -148,20 +148,20 @@ int clearList(struct list *inputList){
 }
 
 int main(){
-	char str[16];		//入力文字列用
-	struct list *head;	//リストの先頭アドレス
+	char str[16];		//For input string
+	struct list *head;	//Top of list address
 	
 	while(true){
-		printf("\n***<<< 4桁で10になる計算機 >>>***\n");
+		printf("\n***<<< 4 numbers for results in 10 >>>***\n");
 		printf("input 4 numbers (xxxx)>>");
 		
 		fgets(str, 5, stdin);
-		str[strlen(str)] = '\0';	//改行文字を終末文字に
-		fflush(stdin);				//標準入力ストリームのクリア
+		str[strlen(str)] = '\0';	//Replace \n to \0
+		fflush(stdin);				//Clear stdin stream
 		
-		head = generator(str);						//計算式リストの生成
-		printf("sum：%d\n", showList(head));	//計算式リストの表示
-		clearList(head);							//計算式リストの削除
+		head = generator(str);					//Generate list of formula
+		printf("sum:%d\n", showList(head));		//Show list of formula
+		clearList(head);						//delete list of formula
 	}
 	
 	return 0;
